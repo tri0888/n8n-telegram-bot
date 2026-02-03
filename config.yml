@@ -1,0 +1,7 @@
+tunnel: 4aadec9c-b2eb-4b95-a8b4-bf09b9cdb314
+credentials-file: /etc/cloudflared/4aadec9c-b2eb-4b95-a8b4-bf09b9cdb314.json
+
+ingress:
+  - hostname: n8n.foodfast.me
+    service: http://n8n:5678
+  - service: http_status:404

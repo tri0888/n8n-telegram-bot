@@ -1,0 +1,29 @@
+version: "3.9"
+
+networks:
+  n8n_net:
+
+services:
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: n8n
+    restart: always
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_HOST=n8n.foodfast.me
+      - N8N_PROTOCOL=https
+      - WEBHOOK_URL=https://n8n.foodfast.me
+      - NODE_ENV=production
+    networks:
+      - n8n_net
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared
+    restart: always
+    command: tunnel run n8n-tunnel
+    volumes:
+      - C:/Users/trand/.cloudflared:/etc/cloudflared
+    networks:
+      - n8n_net
